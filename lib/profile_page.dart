@@ -1,13 +1,33 @@
 import 'package:flutter/material.dart';
- 
+import 'demo_auth.dart';
+import 'login_screen.dart';
+
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
- 
+
+  void _logout(BuildContext context) {
+    DemoAuth.logout();
+
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(
+        builder: (context) => const LoginScreen(),
+      ),
+      (route) => false,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Profile'),
+        actions: [
+          IconButton(
+            tooltip: 'Logout',
+            icon: const Icon(Icons.logout),
+            onPressed: () => _logout(context),
+          ),
+        ],
       ),
       body: ListView(
         padding: const EdgeInsets.all(24),
@@ -51,6 +71,17 @@ class ProfilePage extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+          const SizedBox(height: 24),
+          ElevatedButton.icon(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red.shade50,
+              foregroundColor: Colors.red,
+              padding: const EdgeInsets.symmetric(vertical: 12),
+            ),
+            onPressed: () => _logout(context),
+            icon: const Icon(Icons.logout),
+            label: const Text('Logout'),
           ),
         ],
       ),
