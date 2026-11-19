@@ -25,14 +25,14 @@ void main() {
   }
 
   Future<void> openSocialMedia(WidgetTester tester) async {
-    await tester.tap(find.widgetWithText(NavigationDestination, 'Social Media'));
+    await tester.tap(find.widgetWithText(NavigationDestination, 'Social'));
     await tester.pumpAndSettle();
   }
 
   testWidgets('Test 1 & 2: Login with admin and open Social Media showing sample posts',
       (WidgetTester tester) async {
     await loginWithCredentials(tester, 'admin', 'admin123');
-    expect(find.text('Welcome, Student!'), findsOneWidget);
+    expect(find.text('Welcome, admin!'), findsOneWidget);
 
     await openSocialMedia(tester);
     expect(find.text('JohnDoe'), findsOneWidget);
@@ -149,13 +149,13 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Liked'), findsOneWidget);
 
-    // Switch to Home
-    await tester.tap(find.widgetWithText(NavigationDestination, 'Home'));
+    // Switch to Dashboard
+    await tester.tap(find.widgetWithText(NavigationDestination, 'Dashboard'));
     await tester.pumpAndSettle();
-    expect(find.text('Welcome, Student!'), findsOneWidget);
+    expect(find.text('Welcome, admin!'), findsOneWidget);
 
-    // Switch back to Social Media
-    await tester.tap(find.widgetWithText(NavigationDestination, 'Social Media'));
+    // Switch back to Social
+    await tester.tap(find.widgetWithText(NavigationDestination, 'Social'));
     await tester.pumpAndSettle();
     expect(find.text('Preserved post'), findsOneWidget);
     expect(find.text('Liked'), findsOneWidget);
@@ -168,7 +168,7 @@ void main() {
     // Go to Profile and logout
     await tester.tap(find.widgetWithText(NavigationDestination, 'Profile'));
     await tester.pumpAndSettle();
-    await tester.tap(find.byTooltip('Logout'));
+    await tester.tap(find.widgetWithText(ElevatedButton, 'Logout'));
     await tester.pumpAndSettle();
 
     expect(find.text('Welcome Back!'), findsOneWidget);

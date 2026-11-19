@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'calculator_screen.dart';
 import 'demo_auth.dart';
-import 'home_page.dart';
+import 'dashboard_page.dart';
+import 'calculator_screen.dart';
 import 'profile_page.dart';
 import 'social_media/social_media.dart';
 
@@ -21,13 +21,13 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
 
+    final username = DemoAuth.currentUsername!;
+
     pages = [
-      const HomePage(),
+      DashboardPage(username: username),
       const CalculatorScreen(),
-      const ProfilePage(),
-      SocialMediaPage(
-        username: DemoAuth.currentUsername!,
-      ),
+      SocialMediaPage(username: username),
+      ProfilePage(username: username),
     ];
   }
 
@@ -47,20 +47,24 @@ class _MainScreenState extends State<MainScreen> {
         },
         destinations: const [
           NavigationDestination(
-            icon: Icon(Icons.home),
-            label: 'Home',
+            icon: Icon(Icons.dashboard_outlined),
+            selectedIcon: Icon(Icons.dashboard),
+            label: 'Dashboard',
           ),
           NavigationDestination(
-            icon: Icon(Icons.calculate),
+            icon: Icon(Icons.calculate_outlined),
+            selectedIcon: Icon(Icons.calculate),
             label: 'Calculator',
           ),
           NavigationDestination(
-            icon: Icon(Icons.person),
-            label: 'Profile',
+            icon: Icon(Icons.people_outline),
+            selectedIcon: Icon(Icons.people),
+            label: 'Social',
           ),
           NavigationDestination(
-            icon: Icon(Icons.share),
-            label: 'Social Media',
+            icon: Icon(Icons.person_outline),
+            selectedIcon: Icon(Icons.person),
+            label: 'Profile',
           ),
         ],
       ),
